@@ -14,6 +14,7 @@ for i in initial_read:
     graph_index_pos[test[0]]=counter
     path_trace[test[0]]=None
     counter+=1
+    
     directions=[]
     for j in range(2,len(test)-1,2):
         directions.append([test[j],int(test[j+1])])
