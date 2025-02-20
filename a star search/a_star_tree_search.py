@@ -25,7 +25,7 @@ def A_star_test(graph,start_city):
     path=[]
 
     heapq.heappush(heap_queue,(0+heuristics[start_city],start_city,0)) # 0+ heuristic, city name and acctual distance pushed 
-    visited[start_city]=0
+    visited[start_city]=[heuristics[start_city],0]
 
     while len(heap_queue)!=0:
 
@@ -37,15 +37,15 @@ def A_star_test(graph,start_city):
         path.append(current_city)
         for i in range (len(adjacent_cites)):
             if adjacent_cites[i][0]=="Bucharest":
-                if visited[adjacent_cites[i][0]]>adjacent_cites[i][1]+current_dist:
-                    visited[adjacent_cites[i][0]]=adjacent_cites[i][1]+current_dist
+                if visited[adjacent_cites[i][0]][0]>adjacent_cites[i][1]+current_dist+heuristics[adjacent_cites[i][0]]:
+                    visited[adjacent_cites[i][0]]=[adjacent_cites[i][1]+current_dist+heuristics[adjacent_cites[i][0]],adjacent_cites[i][1]+current_dist]
                     path_trace[adjacent_cites[i][0]]=current_city
             
             else: 
                 
                 
-                if visited[adjacent_cites[i][0]]>adjacent_cites[i][1]+current_dist:
-                    visited[adjacent_cites[i][0]]=adjacent_cites[i][1]+current_dist
+                if visited[adjacent_cites[i][0]][0]>adjacent_cites[i][1]+current_dist+heuristics[adjacent_cites[i][0]]:
+                    visited[adjacent_cites[i][0]]=[adjacent_cites[i][1]+current_dist+heuristics[adjacent_cites[i][0]],adjacent_cites[i][1]+current_dist]
                     path_trace[adjacent_cites[i][0]]=current_city
                     heapq.heappush(heap_queue,(adjacent_cites[i][1]+current_dist+heuristics[adjacent_cites[i][0]],adjacent_cites[i][0],adjacent_cites[i][1]+current_dist))
 
