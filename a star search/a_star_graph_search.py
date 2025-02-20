@@ -10,7 +10,7 @@ counter=1
 for i in initial_read:
     test=i.split(' ')
     heuristics[test[0]]=int(test[1])
-    visited[test[0]]=math.inf
+    visited[test[0]]=[math.inf,math.inf] #visited[city name]=[heuristic+actualpath cost, actual path cost] actual path cost is also saved to output final distance
     graph_index_pos[test[0]]=counter
     path_trace[test[0]]=None
     counter+=1
@@ -20,13 +20,13 @@ for i in initial_read:
         directions.append([test[j],int(test[j+1])])
         
     graph.append(directions)
-def A_star_test(graph,start_city):
+def A_star_test(graph,heuristics,start_city,end_city):
     heap_queue=[]
     path=[]
 
     heapq.heappush(heap_queue,(0+heuristics[start_city],start_city,0)) # 0+ heuristic, city name and acctual distance pushed 
     visited[start_city]=[heuristics[start_city],0]
-
+   
     while len(heap_queue)!=0:
 
         current=heapq.heappop(heap_queue)
@@ -36,7 +36,7 @@ def A_star_test(graph,start_city):
         adjacent_cites=graph[graph_index_pos[current_city]]
         path.append(current_city)
         for i in range (len(adjacent_cites)):
-            if adjacent_cites[i][0]=="Bucharest":
+            if adjacent_cites[i][0]==end_city:
                 if visited[adjacent_cites[i][0]][0]>adjacent_cites[i][1]+current_dist+heuristics[adjacent_cites[i][0]]:
                     visited[adjacent_cites[i][0]]=[adjacent_cites[i][1]+current_dist+heuristics[adjacent_cites[i][0]],adjacent_cites[i][1]+current_dist]
                     path_trace[adjacent_cites[i][0]]=current_city
@@ -51,7 +51,7 @@ def A_star_test(graph,start_city):
 
     #print(path_trace)
     path=[]
-    test='Bucharest'
+    test=end_city
     path.append(test)
     while test!=start_city:
         test=path_trace[test]
@@ -67,6 +67,10 @@ def A_star_test(graph,start_city):
 
     print()
    
-    print('Total distance:',visited['Bucharest'])
+    print('Total distance:',visited[end_city][1],'km')
 
-A_star_test(graph,input('Start node: '))
+
+    print(graph)
+ 
+
+A_star_test(graph,heuristics,input('Start node: '),input('End node: '))
