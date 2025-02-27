@@ -37,7 +37,7 @@ def A_star_test(graph,heuristics,start_city,end_city):
        
         for i in range (len(adjacent_cites)):
             if adjacent_cites[i][0]==end_city:  #if goal city reached
-                if visited[adjacent_cites[i][0]][0]>adjacent_cites[i][1]+current_dist+heuristics[adjacent_cites[i][0]]:   #checks if a there exists a better path already
+                if visited[adjacent_cites[i][0]][0]>adjacent_cites[i][1]+current_dist+heuristics[adjacent_cites[i][0]]:   #checks if a there exists a better path already using sum of heuristics and path cost
                     visited[adjacent_cites[i][0]]=[adjacent_cites[i][1]+current_dist+heuristics[adjacent_cites[i][0]],adjacent_cites[i][1]+current_dist] 
                     path_trace[adjacent_cites[i][0]]=current_city
             
