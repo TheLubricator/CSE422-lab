@@ -40,7 +40,7 @@ def Genetic_Algorithm_test(capital,historical_prices,population,generation):
     def elitist_returner(population):
         return sorted(population,key=lambda chromo: fitness_check(capital, historical_prices, chromo), reverse=True)
     def crossover(parent1,parent2):
-        random_point=random.randrange(0,4,1)
+        random_point=random.randrange(0,5,1)
         child1=parent1[0:random_point+1]+parent2[random_point+1:]
         child2=parent2[0:random_point+1]+parent1[random_point+1:]
         return child1,child2
